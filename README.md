@@ -43,9 +43,9 @@ Você não precisa usar `eject`. O conjunto de recursos selecionados é adequado
 
 # PixChegô
 
-**Pix** is a revolutionary instant payment system in Brazil that allows individuals and businesses to transfer money immediately and for free. Unlike traditional bank transfers, Pix works 24/7, uses just a phone number, email, or tax ID to send funds, and transactions are processed in seconds. It has rapidly become the most popular payment method in Brazil, transforming how people and companies handle financial transactions by making transfers quick, easy, and cost-effective.
-
 :us: [EN]
+
+**Pix** is a revolutionary instant payment system in Brazil that allows individuals and businesses to transfer money immediately and for free. Unlike traditional bank transfers, Pix works 24/7, uses just a phone number, email, or tax ID to send funds, and transactions are processed in seconds. It has rapidly become the most popular payment method in Brazil, transforming how people and companies handle financial transactions by making transfers quick, easy, and cost-effective.
 
 ## Installation
 
