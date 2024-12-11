@@ -20,7 +20,7 @@ function App() {
             <WebhookProvider>
                 <Container maxWidth="md" sx={{ mt: 4 }}>
                     <WebhookEventList />
-                    <WebhookEventPopup />  {/* Adicionando o Popup */}
+                    <WebhookEventPopup />  {}
                     <ToastContainer />
                 </Container>
             </WebhookProvider>
