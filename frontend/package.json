@@ -11,6 +11,7 @@
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "cra-template": "1.2.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -21,7 +22,7 @@
     "ws": "^8.18.0"
   },
   "scripts": {
-    "start": "node src/server.js & react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

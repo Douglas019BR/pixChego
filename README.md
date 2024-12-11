@@ -1,6 +1,6 @@
 # PixChegô
 
-![PixChegô](/pixChegoNoBackgroundLogo.png)
+![PixChegô](/frontend/public/pixChegoNoBackgroundLogo.png)
 
 :brazil: [PT/BR]
 
