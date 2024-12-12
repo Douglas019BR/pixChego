@@ -36,7 +36,3 @@ backend/ENV/
 backend/venv/
 backend/env/
 backend/.env/
-
-# IDEs
-.vscode/
-.idea/
