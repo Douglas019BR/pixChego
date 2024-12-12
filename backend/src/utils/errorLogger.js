@@ -23,3 +23,7 @@ Stack: ${error instanceof Error ? error.stack : 'N/A'}
 }
 
 module.exports = { logError };
+
+
+// TO DO 
+// substituir todos os console.log por logError
