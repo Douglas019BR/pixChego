@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const { v4: uuidv4 } = require('uuid');
 
 const Payment = sequelize.define('Payment', {
   id: {
@@ -15,9 +16,14 @@ const Payment = sequelize.define('Payment', {
     type: DataTypes.STRING,
     defaultValue: 'pending'
   },
-  externalId: {
-    type: DataTypes.STRING,
+  externalReference: {
+    type: DataTypes.UUID,
+    defaultValue: uuidv4,
     unique: true,
+    allowNull: false
+  },
+  externalId: {
+    type: DataTypes.BIGINT,
     allowNull: true
   },
   title: {
@@ -25,10 +31,6 @@ const Payment = sequelize.define('Payment', {
     allowNull: true
   },
   description: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  externalReference: {
     type: DataTypes.STRING,
     allowNull: true
   },
@@ -44,6 +46,10 @@ const Payment = sequelize.define('Payment', {
   clientId: {
     type: DataTypes.BIGINT,
     allowNull: false
+  },
+  payerId: {
+    type: DataTypes.BIGINT,
+    allowNull: true
   },
   createdAt: {
     type: DataTypes.DATE,
