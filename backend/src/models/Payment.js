@@ -17,7 +17,8 @@ const Payment = sequelize.define('Payment', {
   },
   externalId: {
     type: DataTypes.STRING,
-    unique: true
+    unique: true,
+    allowNull: true
   },
   title: {
     type: DataTypes.STRING,
@@ -49,7 +50,7 @@ const Payment = sequelize.define('Payment', {
     allowNull: false,
     defaultValue: DataTypes.NOW
   },
-  payedAt: {
+  paidAt: {
     type: DataTypes.DATE,
     allowNull: true
   },
