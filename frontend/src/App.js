@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { WebhookProvider } from './contexts/WebhookContext/index';
 import WebhookEventList from './components/WebhookEventList/index';
 import WebhookEventPopup from './components/WebhookEventPopup/index';
+import PaymentList from './components/PaymentList';
 
 const theme = createTheme({
     palette: {
@@ -21,6 +22,7 @@ function App() {
                 <Container maxWidth="md" sx={{ mt: 4 }}>
                     <WebhookEventList />
                     <WebhookEventPopup />  {}
+                    <PaymentList></PaymentList>
                     <ToastContainer />
                 </Container>
             </WebhookProvider>
