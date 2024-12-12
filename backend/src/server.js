@@ -1,45 +1,33 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const WebSocket = require('ws');
+const sequelize = require('./config/database');
+const websocketService = require('./services/websocketService');
 
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 
-// Servidor WebSocket
-const wss = new WebSocket.Server({ port: 8080 });
+app.use('/webhook', require('./routes/webhookRoutes'));
+app.use('/payments', require('./routes/paymentRoutes'));
 
-// Lista de conexões WebSocket ativas
-const clients = new Set();
+const PORT = process.env.PORT || 4000;
 
-wss.on('connection', (ws) => {
-    console.log('Cliente conectado ao WebSocket');
-    clients.add(ws);
+async function startServer() {
+  try {
+    await sequelize.sync();
+    console.log('Modelos sincronizados com o banco de dados');
 
-    // Remove o cliente da lista ao desconectar
-    ws.on('close', () => {
-        console.log('Cliente desconectado do WebSocket');
-        clients.delete(ws);
-    });
-});
-
-// Endpoint para receber eventos do webhook
-app.post('/webhook', (req, res) => {
-    console.log('Evento recebido:', req.body);
-
-    // Envia o evento para todos os clientes conectados
-    clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(req.body));
-        }
+    app.listen(PORT, () => {
+      console.log(`Servidor HTTP rodando na porta ${PORT}`);
     });
 
-    res.status(200).json({ message: 'Evento recebido com sucesso' });
-});
+    websocketService.initialize();
+  } catch (error) {
+    console.error('Erro ao iniciar o servidor:', error);
+  }
+}
 
-// Inicializa o servidor
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+startServer();
