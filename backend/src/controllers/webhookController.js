@@ -1,6 +1,6 @@
 const websocketService = require('../services/websocketService');
 const Payment = require('../models/Payment');
-const { urlencoded } = require('body-parser');
+const { logError } = require('../utils/errorLogger');
 
 exports.handleWebhook = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ exports.handleWebhook = async (req, res) => {
 
     res.status(200).json({ message: 'Evento recebido com sucesso', paymentId: payment.id });
   } catch (error) {
-    console.error('Erro no webhook:', error);
-    res.status(500).json({ message: 'Erro ao processar webhook' });
+    logError('webhook controller error :', error);
+    res.status(500).json({ message: 'webhook processing error' });
   }
 };
