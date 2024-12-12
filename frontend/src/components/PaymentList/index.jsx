@@ -15,10 +15,18 @@ const PaymentList = () => {
     console.log('aoba')
     const fetchPayments = async () => {
       try {
-        // const response = await getPayments();
-        // setPayments(response.data);
+        const response = await getPayments();
 
-        setPayments(await getMockPayments());
+        if(!response.data)
+        {
+          setPayments([]);
+
+          return;
+        }
+        
+        setPayments(response.data);
+
+        // setPayments(await getMockPayments());
       } catch (err) {
         setError('Erro ao buscar pagamentos.');
       } finally {
