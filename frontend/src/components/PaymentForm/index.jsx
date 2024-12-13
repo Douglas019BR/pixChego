@@ -18,6 +18,8 @@ const PaymentForm = ({ onSave }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setQrData(null);
+    setSucces(false);
   };
 
   const handleSave = async (paymentData) => {
