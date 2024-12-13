@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const websocketService = require('./services/websocketService');
 const corsOptions = require('./config/corsOptions');
-const validateApiToken = require('./middleware/apiTokenMiddleware');
-const validateWebhook = require('./middleware/webhookValidation');
+const validateApiToken = require('./midleware/apiTokenMiddleware');
+const validateWebhook = require('./midleware/webhookValidation');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(['/webhook'], validateWebhook);
 
 
 app.use('/webhook', require('./routes/webhookRoutes'));
-app.use('/payments', require('./routes/paymentRoutes'));
+app.use('/payments', require('./routes/paymentRotes'));
 
 const PORT = process.env.PORT || 4000;
 

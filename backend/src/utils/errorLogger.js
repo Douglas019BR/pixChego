@@ -4,6 +4,8 @@ const path = require('path');
 const logFilePath = path.resolve(__dirname, '../../error.log');
 
 function logError(message, error) {
+  console.log(message)
+  console.error(error)
   const timestamp = new Date().toISOString();
   const logMessage = `
 ---
