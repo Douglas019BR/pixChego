@@ -58,7 +58,7 @@ exports.createPayment = async (req, res) => {
             description,
         });
 
-        res.status(201).json(payment);
+        res.status(201).json(response);
     } catch (error) {
         logError('Erro ao criar pagamento:', error);
         res.status(500);
