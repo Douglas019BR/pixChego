@@ -1,44 +1,61 @@
+const { UUID } = require('sequelize');
 const Payment = require('../models/Payment');
 const { logError } = require('../utils/errorLogger');
+const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
 
 const URL_QR_STATIC_ORDER = 'https://api.mercadopago.com/instore/orders/qr/seller/collectors/' + process.env.USER_ID + '/pos/' + process.env.EXTERNAL_POS_ID + '/qrs'
+
+
 exports.createPayment = async (req, res) => {
     try {
-        const { amount, externalId } = req.body;
+        const { amount, title, description } = req.body;
+        const externalReference = uuidv4();
+        const bodyData = {
+            external_reference: externalReference.toString(),
+            notification_url: process.env.NOTIFICATION_URL,
+            total_amount: amount,
+            items: [
+                {
+                    sku_number: '70002',
+                    category: 'electronics',
+                    title: "product",
+                    description: "generic payment order",
+                    quantity: 1,
+                    unit_measure: 'unit',
+                    unit_price: amount,
+                    total_amount: amount,
+                }
+            ],
+            title: title,
+            description: description
+        };
 
-        // TO DO
-        // bater na rota de criar pagamento e pegar o externalId no response
+        let retryCount = 0;
+        const maxRetries = 5;
+        let response;
 
-
-        // Create order to static QR : PUT
-        // https://api.mercadopago.com/instore/orders/qr/seller/collectors/:userId/pos/:externalPosId/qrs
-
-        // {
-        //     "external_reference": "reference_23",
-        //     "notification_url":"https://webhook.site/a281033b-f7da-44c3-9920-810137609f30",
-        //     "total_amount": 1,
-        //     "items": [
-        //         {
-        //             "sku_number": "70002",
-        //             "category": "electronics",
-        //             "title": "Auriculares",
-        //             "description": "phone",
-        //             "quantity": 1,
-        //             "unit_measure": "unit",
-        //             "unit_price": 1,
-        //             "total_amount": 1
-        //         }
-        //     ],
-        //     "title": "teste douglas",
-        //     "description": "douglas teste" 
-        // }
+        while (retryCount < maxRetries) {
+            try {
+            response = await axios.post(URL_QR_STATIC_ORDER, bodyData, {
+                headers: {
+                Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
+                }
+            });
+            break;
+            } catch (error) {
+            retryCount++;
+            if (retryCount === maxRetries) {
+                throw new Error('Failed to create payment after multiple attempts');
+            }
+            }
+        }
 
         const payment = await Payment.create({
             amount,
-            externalId,
+            externalReference,
             title,
             description,
-            orderStatus: 'pending',
         });
 
         res.status(201).json(payment);
