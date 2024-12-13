@@ -4,19 +4,22 @@ const { logError } = require('../utils/errorLogger');
 const axios = require('axios');
 
 
-function updatePaymentStatus(externalReference, externalId, status, payerId, canceled, isTest, orderStatus, clientId) {
+async function  updatePaymentStatus(externalReference, externalId, status, payerId, canceled, isTest, orderStatus, clientId) {
 
-  const payment = Payment.findOneAndUpdate(
-    { externalReference },
-    {
-      status: canceled ? 'cancelled' : status,
-      externalId,
-      payerId,
-      isTest,
-      orderStatus,
-      clientId
-    },
-  );
+  const payment = await Payment.findOne({ where: { externalReference } });
+
+  if (!payment) {
+    throw new Error('Payment not found');
+  }
+
+  payment.status = canceled ? 'cancelled' : status;
+  payment.externalId = externalId;
+  payment.payerId = payerId;
+  payment.isTest = isTest;
+  payment.orderStatus = orderStatus;
+  payment.clientId = clientId;
+
+  await payment.save();
   return payment
 }
 
@@ -42,9 +45,10 @@ exports.handleWebhook = async (req, res) => {
         }
       });
       const data = response.data
-      const payment = updatePaymentStatus(data.external_reference, data.id, data.status, data.payer, data.cancelled, data.is_test, data.order_status, data.client_id)
+      const payment = await updatePaymentStatus(data.external_reference, data.id, data.status, data.payer, data.cancelled, data.is_test, data.order_status, data.client_id)
       if (shouldSendWebsocketNotification(payment.orderStatus)) {
-        websocketService.broadcastMessage(payment)
+        websocketService.broadcastMessage(payment.dataValues)
+        console.log("notification",payment.dataValues)
       }
     }
     res.status(200).json({ message: 'Evento processado com sucesso'});

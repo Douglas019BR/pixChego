@@ -10,7 +10,8 @@ exports.createPayment = async (req, res) => {
     try {
         const { amount, title, description } = req.body;
         const externalReference = uuidv4();
-        const doubleAmount = parseFloat(amount);
+        const normalizedAmount = amount.replace(",", ".");
+        const doubleAmount = parseFloat(normalizedAmount);
         const bodyData = {
             external_reference: externalReference.toString(),
             notification_url: process.env.NOTIFICATION_URL,
