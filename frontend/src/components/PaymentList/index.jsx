@@ -1,7 +1,7 @@
 // PaymentList.js
 import React, { useEffect, useState } from 'react';
 import { List, ListItem, ListItemText, Typography, CircularProgress, Divider, Button } from '@mui/material';
-import { getMockPayments, getPayments } from '../../services/paymentService'
+import { getMockPayments, getPayments } from '../../services/paymentService';
 import PaymentModal from '../PaymentModal';
 
 const PaymentList = () => {
@@ -11,28 +11,26 @@ const PaymentList = () => {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    console.log('aoba')
-    const fetchPayments = async () => {
-      try {
-        const response = await getPayments();
-        if(!response)
-        {
-          setPayments([]);
+  const fetchPayments = async () => {
+    try {
+      const response = await getPayments();
+      if (!response) {
+        setPayments([]);
 
-          return;
-        }
-        
-        setPayments(response);
-
-        // setPayments(await getMockPayments());
-      } catch (err) {
-        setError('Erro ao buscar pagamentos.');
-      } finally {
-        setLoading(false);
+        return;
       }
-    };
 
+      setPayments(response);
+
+      // setPayments(await getMockPayments());
+    } catch (err) {
+      setError('Erro ao buscar pagamentos.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchPayments();
   }, []);
 

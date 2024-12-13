@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import PaymentModal from '../CreatePaymentModal';
-import { createPayment, createPaymentMock } from '../../services/paymentService'
+import { createPayment, createPaymentMock } from '../../services/paymentService';
 
-const PaymentForm = ({paymentList}) => {
+const PaymentForm = ({ onSave }) => {
   const [open, setOpen] = useState(false);
   const [succes, setSucces] = useState(false);
   const [qrData, setQrData] = useState(null);
@@ -22,20 +22,21 @@ const PaymentForm = ({paymentList}) => {
 
   const handleSave = async (paymentData) => {
     try {
-        const response = await createPayment(paymentData);
+      const response = await createPayment(paymentData);
 
-        console.log(response);
+      console.log(response);
 
-        handleSuccess(true);
-        handleQrData(response);
-        if(!!paymentList){ await paymentList() }
-
+      handleSuccess(true);
+      handleQrData(response);
+      if (!!onSave) {
+        await onSave();
+      }
     } catch (error) {
-        console.log(`Erro ao criar pagamento ${error}`);
+      console.log(`Erro ao criar pagamento ${error}`);
 
-        handleSuccess(false);
+      handleSuccess(false);
 
-        handleQrData(qrData);
+      handleQrData(qrData);
     }
   };
 
@@ -46,7 +47,6 @@ const PaymentForm = ({paymentList}) => {
       </Button>
 
       <PaymentModal open={open} onClose={handleClose} onSave={handleSave} qrData={qrData} success={succes} />
-      
     </div>
   );
 };

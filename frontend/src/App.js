@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,15 +16,23 @@ const theme = createTheme({
 });
 
 function App() {
+
+    const paymentListRef = useRef();
+
+    const callGetPayments = async () => {
+        if(!!paymentListRef.current)
+            await paymentListRef.current.fetchPayments();
+
+    }
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <WebhookProvider>
                 <Container maxWidth="md" sx={{ mt: 4 }}>
                     <WebhookEventList />
-                    <PaymentForm />
+                    <PaymentForm onSave={callGetPayments} />
                     <WebhookEventPopup />  { }
-                    <PaymentList></PaymentList>
+                    <PaymentList ref={paymentListRef}></PaymentList>
                     <ToastContainer />
                 </Container>
             </WebhookProvider>
