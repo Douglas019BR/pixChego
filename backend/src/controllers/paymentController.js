@@ -60,7 +60,7 @@ exports.createPayment = async (req, res) => {
 
         res.status(201).json(payment);
     } catch (error) {
-        console.error('Erro ao criar pagamento:', error);
+        logError('Erro ao criar pagamento:', error);
         res.status(500);
     }
 };
@@ -72,7 +72,7 @@ exports.listPayments = async (req, res) => {
         });
         res.json(payments);
     } catch (error) {
-        console.error('Error listing payments:', error);
+        logError('Error listing payments:', error);
         res.status(500);
     }
 };
