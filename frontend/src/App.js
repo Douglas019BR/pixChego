@@ -7,6 +7,7 @@ import { WebhookProvider } from './contexts/WebhookContext/index';
 import WebhookEventList from './components/WebhookEventList/index';
 import WebhookEventPopup from './components/WebhookEventPopup/index';
 import PaymentList from './components/PaymentList';
+import PaymentForm from './components/PaymentForm';
 
 const theme = createTheme({
     palette: {
@@ -21,7 +22,8 @@ function App() {
             <WebhookProvider>
                 <Container maxWidth="md" sx={{ mt: 4 }}>
                     <WebhookEventList />
-                    <WebhookEventPopup />  {}
+                    <PaymentForm />
+                    <WebhookEventPopup />  { }
                     <PaymentList></PaymentList>
                     <ToastContainer />
                 </Container>
