@@ -46,7 +46,7 @@ module.exports = {
       },
       clientId: {
         type: Sequelize.BIGINT,
-        allowNull: false
+        allowNull: true
       },
       payerId: {
         type: Sequelize.BIGINT,

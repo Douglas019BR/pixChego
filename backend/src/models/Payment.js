@@ -45,7 +45,7 @@ const Payment = sequelize.define('Payment', {
   },
   clientId: {
     type: DataTypes.BIGINT,
-    allowNull: false
+    allowNull: true
   },
   payerId: {
     type: DataTypes.BIGINT,

@@ -1,4 +1,3 @@
-const { UUID } = require('sequelize');
 const Payment = require('../models/Payment');
 const { logError } = require('../utils/errorLogger');
 const axios = require('axios');
@@ -11,10 +10,11 @@ exports.createPayment = async (req, res) => {
     try {
         const { amount, title, description } = req.body;
         const externalReference = uuidv4();
+        const doubleAmount = parseFloat(amount);
         const bodyData = {
             external_reference: externalReference.toString(),
             notification_url: process.env.NOTIFICATION_URL,
-            total_amount: amount,
+            total_amount: doubleAmount,
             items: [
                 {
                     sku_number: '70002',
@@ -23,8 +23,8 @@ exports.createPayment = async (req, res) => {
                     description: "generic payment order",
                     quantity: 1,
                     unit_measure: 'unit',
-                    unit_price: amount,
-                    total_amount: amount,
+                    unit_price: doubleAmount,
+                    total_amount: doubleAmount,
                 }
             ],
             title: title,
@@ -57,8 +57,8 @@ exports.createPayment = async (req, res) => {
             title,
             description,
         });
-
-        res.status(201).json(response);
+        console.log(response.data)
+        res.status(201).json(response.data);
     } catch (error) {
         logError('Erro ao criar pagamento:', error);
         res.status(500);

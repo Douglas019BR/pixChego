@@ -11,15 +11,11 @@ const validateWebhook = require('./midleware/webhookValidation');
 const app = express();
 
 // app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
-app.use(['/webhook'], validateWebhook);
-app.use(['/payments'], validateApiToken);
-
-
-
-app.use('/webhook', require('./routes/webhookRoutes'));
-app.use('/payments', require('./routes/paymentRotes'));
+app.use('/webhook', validateWebhook, require('./routes/webhookRoutes'));
+app.use('/payments', validateApiToken, require('./routes/paymentRoutes'));
 
 const PORT = process.env.PORT || 4000;
 

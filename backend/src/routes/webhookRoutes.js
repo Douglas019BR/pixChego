@@ -2,8 +2,8 @@ const express = require('express');
 const webhookController = require('../controllers/webhookController');
 require('dotenv').config();
 
-const router = express.Router();
+const webhookRouter = express.Router();
 
-router.post('/', webhookController.handleWebhook);
+webhookRouter.post('/', webhookController.handleWebhook);
 
-module.exports = router;
+module.exports = webhookRouter;
