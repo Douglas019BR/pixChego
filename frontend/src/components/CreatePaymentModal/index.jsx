@@ -47,7 +47,7 @@ const PaymentModal = ({ open, onClose, onSave, success, qrData }) => {
       aria-labelledby="payment-modal-title"
       aria-describedby="payment-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={{ ...style, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography id="payment-modal-title" variant="h6" component="h2">
           Criar Pagamento
         </Typography>
@@ -55,7 +55,7 @@ const PaymentModal = ({ open, onClose, onSave, success, qrData }) => {
         {success && !!qrData ? (
           <QRCodeGenerator value={qrData}></QRCodeGenerator>
         ) : (
-          <div>
+          <div style={{ width: '100%' }}>
             <Divider sx={{ my: 2 }} />
 
             <TextField
