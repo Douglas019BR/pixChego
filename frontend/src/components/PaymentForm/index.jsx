@@ -35,7 +35,7 @@ const PaymentForm = () => {
 
         handleSuccess(false);
 
-        handleQrData(null);qrData
+        handleQrData(qrData);
     }
   };
 
