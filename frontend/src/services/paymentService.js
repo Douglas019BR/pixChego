@@ -18,6 +18,20 @@ export const getPayments = async () => {
   }
 };
 
+export const createPayment = async (data) => {
+  try{
+    const response = await apiClient.post(endpoint, data);
+    return response.data; // Retorna apenas os dados da resposta
+  } catch(error){
+    console.error('Erro ao criar ', error);
+    throw error; // Repassa o erro
+  }
+}
+
+export const createPaymentMock = async (data) => {
+  return data;
+}
+
 export const getMockPayments = async () => [
     {
       id: 1,
