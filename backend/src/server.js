@@ -10,10 +10,12 @@ const validateWebhook = require('./midleware/webhookValidation');
 
 const app = express();
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(['/payments'], validateApiToken);
+
 app.use(['/webhook'], validateWebhook);
+app.use(['/payments'], validateApiToken);
+
 
 
 app.use('/webhook', require('./routes/webhookRoutes'));

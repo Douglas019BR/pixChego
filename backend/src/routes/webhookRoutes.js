@@ -4,6 +4,6 @@ require('dotenv').config();
 
 const router = express.Router();
 
-router.post('/webhook/' + process.env.WEBHOOK_TOKEN, webhookController.handleWebhook);
+router.post('/', webhookController.handleWebhook);
 
 module.exports = router;
