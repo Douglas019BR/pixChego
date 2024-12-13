@@ -47,7 +47,7 @@ exports.handleWebhook = async (req, res) => {
         websocketService.broadcastMessage(payment)
       }
     }
-    res.status(200).json({ message: 'Evento recebido com sucesso', paymentId: payment.id });
+    res.status(200).json({ message: 'Evento processado com sucesso'});
   } catch (error) {
     logError('webhook controller error :', error);
     res.status(500).json({ message: 'webhook processing error' });
