@@ -3,14 +3,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 export const WebhookContext = createContext();
 
 export const WebhookProvider = ({ children }) => {
-    const [events, setEvents] = useState(() => {
-        const storedEvents = JSON.parse(localStorage.getItem('events')) || [];
-        return storedEvents;
-    });
-
-    useEffect(() => {
-        localStorage.setItem('events', JSON.stringify(events));
-    }, [events]);
+    const [events, setEvents] = useState([]); // Inicializa os eventos como uma lista vazia
 
     const addEvent = useCallback((event) => {
         console.log("Adicionando evento:", event);

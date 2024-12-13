@@ -4,10 +4,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { WebhookProvider } from './contexts/WebhookContext/index';
-import WebhookEventList from './components/WebhookEventList/index';
 import WebhookEventPopup from './components/WebhookEventPopup/index';
 import PaymentList from './components/PaymentList';
 import PaymentForm from './components/PaymentForm';
+
+
 
 const theme = createTheme({
     palette: {
@@ -27,15 +28,17 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <WebhookProvider>
-                <Container maxWidth="md" sx={{ mt: 4 }}>
-                    <WebhookEventList />
-                    <PaymentForm onSave={callGetPayments} />
-                    <WebhookEventPopup />  { }
-                    <PaymentList ref={paymentListRef}></PaymentList>
-                    <ToastContainer />
-                </Container>
-            </WebhookProvider>
+            <div className="app-background">
+                <div className="background-image"></div>
+                <WebhookProvider>
+                    <Container maxWidth="md" sx={{ mt: 4 }}>
+                        <PaymentForm onSave={callGetPayments} />
+                        <WebhookEventPopup />
+                        <PaymentList ref={paymentListRef}></PaymentList>
+                        <ToastContainer />
+                    </Container>
+                </WebhookProvider>
+            </div>
         </ThemeProvider>
     );
 }

@@ -20,7 +20,7 @@ const PaymentList = () => {
         return;
       }
 
-      setPayments(response);
+      setPayments(response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
 
       // setPayments(await getMockPayments());
     } catch (err) {

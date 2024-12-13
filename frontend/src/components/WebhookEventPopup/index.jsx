@@ -13,7 +13,7 @@ const WebhookEventPopup = () => {
             setOpen(true);
 
             // Fechar o popup automaticamente após 5 segundos
-            const timer = setTimeout(() => setOpen(false), 5000);
+            const timer = setTimeout(() => setOpen(false), 7000);
             return () => clearTimeout(timer);
         }
     }, [events]);
@@ -24,8 +24,10 @@ const WebhookEventPopup = () => {
         <Dialog open={open} onClose={() => setOpen(false)}>
             <DialogContent>
                 <DialogContentText>
-                    <strong>Tipo:</strong> {latestEvent.type || 'Não especificado'} <br />
-                    <strong>Mensagem:</strong> {latestEvent.message} <br />
+                    <strong>Valor:</strong> {latestEvent.amount || 'Não especificado'} <br />
+                    <strong>Título:</strong> {latestEvent.title || 'Não especificado'} <br />
+                    <strong>Descrição:</strong> {latestEvent.description || 'Não especificado'} <br />
+                    <strong>Status:</strong> {latestEvent.orderStatus === 'paid' ? 'PAGO' : latestEvent.orderStatus} <br />
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
