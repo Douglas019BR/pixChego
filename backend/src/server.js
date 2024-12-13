@@ -32,7 +32,7 @@ async function startServer() {
 
     websocketService.initialize();
   } catch (error) {
-    console.error('Starting server error:', error);
+    logError('Starting server error:', error);
   }
 }
 

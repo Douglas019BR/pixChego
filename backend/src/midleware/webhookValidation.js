@@ -31,7 +31,7 @@ const validateWebhook = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error('webhook validation error:', error);
+    logError('webhook validation error:', error);
     res.status(500);
   }
 };
