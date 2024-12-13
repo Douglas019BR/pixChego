@@ -16,15 +16,14 @@ const PaymentList = () => {
     const fetchPayments = async () => {
       try {
         const response = await getPayments();
-
-        if(!response.data)
+        if(!response)
         {
           setPayments([]);
 
           return;
         }
         
-        setPayments(response.data);
+        setPayments(response);
 
         // setPayments(await getMockPayments());
       } catch (err) {

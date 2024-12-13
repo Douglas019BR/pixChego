@@ -1,16 +1,19 @@
 import axios from 'axios';
 
 const endpoint = '/payments';
+const BACKEND_URL = 'http://localhost:4000';
+const X_API_TOKEN = "57f3e8a3-59e5-48cc-9a5d-93e720d04c7a"
 
-const apiClient = axios.create({
-  baseURL: process.env.backend_url,
-  timeout: 5000
-});
 
 // Função genérica para requisições GET
 export const getPayments = async () => {
   try {
-    const response = await apiClient.get(endpoint);
+    const response = await axios.get(`${BACKEND_URL}${endpoint}`,{
+      headers: {
+        'x-api-token': X_API_TOKEN,
+        'Accept': 'application/json',
+      }
+    })
     return response.data; // Retorna apenas os dados da resposta
   } catch (error) {
     console.error('Erro ao buscar os dados:', error);
@@ -20,9 +23,12 @@ export const getPayments = async () => {
 
 export const createPayment = async (data) => {
   try{
-    const response = await apiClient.post(endpoint, data);
+    const response = await axios.post(`${BACKEND_URL}${endpoint}`, data, {
+      headers: {
+      'x-api-token': X_API_TOKEN
+      }
+    });
     const { qr_data } = response.data;
-    
     return qr_data;// Retorna apenas os dados da resposta
   } catch(error){
     console.error('Erro ao criar ', error);

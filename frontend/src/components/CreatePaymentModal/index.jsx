@@ -28,6 +28,10 @@ const PaymentModal = ({ open, onClose, onSave, success, qrData }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleInputAmountChange = (e) => {
+    setFormData((prev) => ({ ...prev, amount: e }));
+  };
+
   // Função para salvar o pagamento
   const handleSave = () => {
     if (onSave) {
@@ -66,7 +70,7 @@ const PaymentModal = ({ open, onClose, onSave, success, qrData }) => {
             <CurrencyInput
               name="amount"
               value={formData.amount}
-              onChange={handleInputChange} // Atualizando o valor no estado
+              setValue={handleInputAmountChange} // Atualizando o valor no estado
             />
 
             <TextField

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Box } from '@mui/material';
 
-const CurrencyInput = () => {
-  const [value, setValue] = useState("0,00");
-
+const CurrencyInput = ({ value, setValue }) => {
   const handleInputChange = (event) => {
     // Obtém o valor digitado e remove caracteres não numéricos
     let input = event.target.value.replace(/[^\d]/g, "");

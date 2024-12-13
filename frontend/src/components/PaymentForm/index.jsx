@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import PaymentModal from '../CreatePaymentModal';
 import { createPayment, createPaymentMock } from '../../services/paymentService'
 
-const PaymentForm = () => {
+const PaymentForm = ({paymentList}) => {
   const [open, setOpen] = useState(false);
   const [succes, setSucces] = useState(false);
   const [qrData, setQrData] = useState(null);
@@ -22,13 +22,13 @@ const PaymentForm = () => {
 
   const handleSave = async (paymentData) => {
     try {
-        const response = await createPaymentMock(paymentData);
+        const response = await createPayment(paymentData);
 
         console.log(response);
 
         handleSuccess(true);
-
         handleQrData(response);
+        if(!!paymentList){ await paymentList() }
 
     } catch (error) {
         console.log(`Erro ao criar pagamento ${error}`);
