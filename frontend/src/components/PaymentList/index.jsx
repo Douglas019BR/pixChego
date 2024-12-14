@@ -34,6 +34,10 @@ const PaymentList = () => {
     fetchPayments();
   }, []);
 
+  useImperativeHandle(ref, () => ({
+    fetchPayments,
+  }));
+
   const handleOpenModal = (payment) => {
     setSelectedPayment(payment);
     setIsModalOpen(true);
