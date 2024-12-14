@@ -4,7 +4,7 @@ import { List, ListItem, ListItemText, Typography, CircularProgress, Divider, Bu
 import { getMockPayments, getPayments } from '../../services/paymentService';
 import PaymentModal from '../PaymentModal';
 
-const PaymentList = forwardRef(() => {
+const PaymentList = forwardRef((ref) => {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
