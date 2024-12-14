@@ -1,7 +1,7 @@
 const corsOptions = {
     origin: function (origin, callback) {
       const whitelist = [
-        'http://localhost:4000',
+        'http://localhost:3000',
         process.env.FRONTEND_URL
       ];
   
@@ -11,7 +11,7 @@ const corsOptions = {
         callback(new Error('CORS origin not allowed'));
       }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST'],
     allowedHeaders: ['*']
   };
   

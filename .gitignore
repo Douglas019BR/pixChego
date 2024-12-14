@@ -25,6 +25,7 @@ backend/dist/
 backend/coverage/
 backend/.next/
 backend/out/
+backend/database.sqlite
 
 
 # Arquivos de logs
