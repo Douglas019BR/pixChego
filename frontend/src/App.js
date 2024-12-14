@@ -21,6 +21,7 @@ function App() {
     const paymentListRef = useRef();
 
     const callGetPayments = async () => {
+        console.log(paymentListRef)
         if(!!paymentListRef.current)
             await paymentListRef.current.fetchPayments();
 

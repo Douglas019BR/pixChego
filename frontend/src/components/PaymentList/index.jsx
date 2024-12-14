@@ -1,10 +1,10 @@
 // PaymentList.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
 import { List, ListItem, ListItemText, Typography, CircularProgress, Divider, Button } from '@mui/material';
 import { getMockPayments, getPayments } from '../../services/paymentService';
 import PaymentModal from '../PaymentModal';
 
-const PaymentList = () => {
+const PaymentList = forwardRef((props, ref) => {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,6 +33,10 @@ const PaymentList = () => {
   useEffect(() => {
     fetchPayments();
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    fetchPayments,
+  }));
 
   const handleOpenModal = (payment) => {
     setSelectedPayment(payment);
@@ -103,6 +107,6 @@ const PaymentList = () => {
       <PaymentModal open={isModalOpen} onClose={handleCloseModal} payment={selectedPayment} />
     </>
   );
-};
+});
 
 export default PaymentList;
