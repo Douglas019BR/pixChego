@@ -4,7 +4,7 @@ import { List, ListItem, ListItemText, Typography, CircularProgress, Divider, Bu
 import { getMockPayments, getPayments } from '../../services/paymentService';
 import PaymentModal from '../PaymentModal';
 
-const PaymentList = () => {
+const PaymentList = forwardRef(() => {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -107,6 +107,6 @@ const PaymentList = () => {
       <PaymentModal open={isModalOpen} onClose={handleCloseModal} payment={selectedPayment} />
     </>
   );
-};
+});
 
 export default PaymentList;
